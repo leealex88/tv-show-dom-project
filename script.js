@@ -3,14 +3,19 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
-  // episodeCode(allEpisodes);
-  // console.log("episods", allEpisodes);
 }
 const rootElem = document.getElementById("root");
 
+const inputDiv = document.createElement("div");
+inputDiv.classList.add("input-div");
+rootElem.appendChild(inputDiv);
+
+const inputTag = document.createElement("input");
+inputTag.classList.add("input");
+inputDiv.appendChild(inputTag);
+
 function makePageForEpisodes(episodeList) {
   const movieLiest = episodeList.map((episod) => {
-    console.log(episod);
     //single card
     const divCard = document.createElement("div");
     divCard.classList.add("single-card");
@@ -43,25 +48,4 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-// function episodeCode(allEpisodes) {
-//   const createCode = allEpisodes.map((episod) => {});
-//   console.log(createCode);
-// }
 window.onload = setup;
-
-// const displayEpisod = allEpisodes.map((episod) => {
-//
-//   let paragraph = document.createElement("p");
-//   card.appendChild(paragraph);
-//   paragraph.innerHTML = episod.name;
-//   doc.appendChild(paragraph);
-//   let paragraph1 = document.createElement("p");
-//   card.appendChild(paragraph1);
-//   paragraph1.innerHTML = `the season number ${episod.season}`;
-//   doc.appendChild(paragraph1);
-//   let paragraph3 = document.createElement("p");
-//   card.appendChild(paragraph3);
-//   paragraph3.innerHTML = `the episode number ${episod.number}`;
-//   doc.appendChild(paragraph3);
-// });
-// console.log(allEpisodes);
