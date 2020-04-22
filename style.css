@@ -27,6 +27,11 @@ body {
   font-size: 23px;
 }
 
+.episode-code {
+  text-align: center;
+
+}
+
 .image {
   display: block;
   margin-left: auto;
