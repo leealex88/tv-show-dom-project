@@ -1,3 +1,40 @@
+body {
+  background-color: #111016;
+  margin-left: 80px;
+  margin-right: 80px;
+  font-family: 'Patrick Hand',
+    cursive;
+}
+
 #root {
-  color: red;
+  color: white;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.single-card {
+  border: white 2px solid;
+  width: 280px;
+  height: 450px;
+  overflow: scroll;
+  margin-bottom: 40px;
+}
+
+.titel {
+  text-align: center;
+  font-size: 23px;
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.summary {
+  text-align: justify;
+  margin: 16px;
+  font-size: 17px;
 }
