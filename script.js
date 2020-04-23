@@ -1,18 +1,30 @@
 //You can edit ALL of the code here
+const allEpisodes = getAllEpisodes();
+// console.log(allEpisodes)
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
 }
-const rootElem = document.getElementById("root");
-
-const inputDiv = document.createElement("div");
-inputDiv.classList.add("input-div");
-rootElem.appendChild(inputDiv);
-
+// console.log(allEpisodes)
+const inputDiv = document.getElementById('input')
 const inputTag = document.createElement("input");
 inputTag.classList.add("input");
 inputDiv.appendChild(inputTag);
+
+const rootElem = document.getElementById("root");
+const allMovieCards = document.getElementsByClassName("single-card")
+
+function searchInput(e) {
+  const searchValue = e.target.value.toLowerCase()
+  const check = Array.from(allMovieCards).filter(element => element.textContent.toLowerCase().includes(searchValue))
+  //clean the context of the div
+  rootElem.textContent = ''
+  //assigne the searched values to the div 
+  check.forEach(element => rootElem.appendChild(element))
+}
+
+inputTag.addEventListener("input", searchInput)
+
 
 function makePageForEpisodes(episodeList) {
   const movieLiest = episodeList.map((episod) => {
