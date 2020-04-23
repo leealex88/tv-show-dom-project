@@ -10,6 +10,9 @@ const inputDiv = document.getElementById('input')
 const inputTag = document.createElement("input");
 inputTag.classList.add("input");
 inputDiv.appendChild(inputTag);
+const pHowMany = document.createElement("p");
+pHowMany.classList.add("p-wow-many");
+inputDiv.appendChild(pHowMany);
 
 const rootElem = document.getElementById("root");
 const allMovieCards = document.getElementsByClassName("single-card")
@@ -17,6 +20,8 @@ const allMovieCards = document.getElementsByClassName("single-card")
 function searchInput(e) {
   const searchValue = e.target.value.toLowerCase()
   const check = Array.from(allMovieCards).filter(element => element.textContent.toLowerCase().includes(searchValue))
+  pHowMany.textContent = `Displaying ${check.length}`
+  console.log(check.length)
   //clean the context of the div
   rootElem.textContent = ''
   //assigne the searched values to the div 
