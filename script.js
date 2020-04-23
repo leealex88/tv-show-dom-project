@@ -20,7 +20,7 @@ const allMovieCards = document.getElementsByClassName("single-card")
 function searchInput(e) {
   const searchValue = e.target.value.toLowerCase()
   const check = Array.from(allMovieCards).filter(element => element.textContent.toLowerCase().includes(searchValue))
-  pHowMany.textContent = `Displaying ${check.length}`
+  pHowMany.textContent = `Displaying ${check.length} from ${allEpisodes.length} episods`
   console.log(check.length)
   //clean the context of the div
   rootElem.textContent = ''
