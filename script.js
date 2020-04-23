@@ -4,6 +4,7 @@ const allEpisodes = getAllEpisodes();
 
 function setup() {
   makePageForEpisodes(allEpisodes);
+  allMovieCards = Array.from(document.getElementsByClassName("single-card"));
 }
 // console.log(allEpisodes)
 const inputDiv = document.getElementById('input')
@@ -13,13 +14,14 @@ inputDiv.appendChild(inputTag);
 const pHowMany = document.createElement("p");
 pHowMany.classList.add("p-wow-many");
 inputDiv.appendChild(pHowMany);
-
+pHowMany.textContent = `Displaying from ${allEpisodes.length}`
 const rootElem = document.getElementById("root");
-const allMovieCards = document.getElementsByClassName("single-card")
+let allMovieCards; //Array with all all movie cards
 
 function searchInput(e) {
   const searchValue = e.target.value.toLowerCase()
-  const check = Array.from(allMovieCards).filter(element => element.textContent.toLowerCase().includes(searchValue))
+  const check = allMovieCards.filter(element => element.textContent.toLowerCase().includes(searchValue))
+  console.log(check)
   pHowMany.textContent = `Displaying ${check.length} from ${allEpisodes.length} episods`
   console.log(check.length)
   //clean the context of the div
