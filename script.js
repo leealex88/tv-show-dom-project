@@ -2,11 +2,16 @@
 const allEpisodes = getAllEpisodes();
 // console.log(allEpisodes)
 
+
 function setup() {
   makePageForEpisodes(allEpisodes);
   allMovieCards = Array.from(document.getElementsByClassName("single-card"));
+  console.log('allEpisods', allEpisodes)
 }
-// console.log(allEpisodes)
+
+
+
+
 const inputDiv = document.getElementById('input')
 const inputTag = document.createElement("input");
 inputTag.classList.add("input");
@@ -17,6 +22,11 @@ inputDiv.appendChild(pHowMany);
 pHowMany.textContent = `Displaying from ${allEpisodes.length}`
 const rootElem = document.getElementById("root");
 let allMovieCards; //Array with all all movie cards
+
+
+const option = document.createElement("SELECT");
+inputDiv.appendChild(option);
+option.add('ols')
 
 function searchInput(e) {
   const searchValue = e.target.value.toLowerCase()
@@ -31,6 +41,7 @@ function searchInput(e) {
 }
 
 inputTag.addEventListener("input", searchInput)
+
 
 
 function makePageForEpisodes(episodeList) {
@@ -65,6 +76,9 @@ function makePageForEpisodes(episodeList) {
       pCodeTag.innerHTML = `S${episod.season}E${episod.number}`;
     }
   });
+
+
 }
+
 
 window.onload = setup;
