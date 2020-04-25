@@ -4,11 +4,9 @@ body {
   color: white;
 }
 
+
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+
   justify-content: center;
 }
 
@@ -20,7 +18,7 @@ body {
   border: white 2px solid;
   height: 450px;
   overflow: scroll;
-  margin: 20px;
+  margin: 5px;
 }
 
 .titel {

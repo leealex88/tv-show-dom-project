@@ -7,6 +7,7 @@ function setup() {
 }
 const rootElem = document.getElementById("root");
 
+
 const firstDiv = document.createElement("div");
 const secondDiv = document.createElement("div");
 const inputTag = document.createElement("input");
@@ -18,8 +19,11 @@ firstDiv.appendChild(pLabelTag)
 
 inputTag.classList.add("input");
 pLabelTag.classList.add("p-label-tag");
-secondDiv.classList.add("cards");
-secondDiv.classList.add("col-12");
+secondDiv.className = "cards row"
+rootElem.className = "container"
+// secondDiv.className = "col-12 sm-col-12"
+
+// secondDiv.classList.add("sm-col-12");
 
 function searchTheInput(episodsObject) {
 
@@ -70,7 +74,7 @@ function makePageForEpisodes(allEpisodesList) {
     secondDiv.innerHTML = '';
     allEpisodesList.forEach((episod) => {
         secondDiv.innerHTML += `
-        <div class="single-card col-2">
+        <div class="single-card lg-col-3">
         <p class="titel">${episod.name}</p>
         <p class="episode-code">${episodeCode(episod)}</p>
         <img class="image" src=${episod.image.medium}>
