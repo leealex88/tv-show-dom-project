@@ -4,26 +4,42 @@ function setup() {
     makePageForEpisodes(allEpisodes);
     searchTheInput(allEpisodes)
     // removePtags(allEpisodes)
+    appendToTheSelect(allEpisodes)
 }
 const rootElem = document.getElementById("root");
 
+
+let select = document.createElement("select");
 
 const firstDiv = document.createElement("div");
 const secondDiv = document.createElement("div");
 const inputTag = document.createElement("input");
 const pLabelTag = document.createElement("p");
+
 rootElem.appendChild(firstDiv)
 rootElem.appendChild(secondDiv)
 firstDiv.appendChild(inputTag)
 firstDiv.appendChild(pLabelTag)
+firstDiv.appendChild(select)
 
 inputTag.classList.add("input");
 pLabelTag.classList.add("p-label-tag");
 secondDiv.className = "cards row"
 rootElem.className = "container"
-// secondDiv.className = "col-12 sm-col-12"
 
+// secondDiv.className = "col-12 sm-col-12"
 // secondDiv.classList.add("sm-col-12");
+
+
+function appendToTheSelect(object) {
+
+
+    object.forEach(object => {
+        let option = document.createElement("option");
+        select.appendChild(option)
+        option.innerHTML += episodeCode(object) + " " + object.name
+    })
+}
 
 function searchTheInput(episodsObject) {
 
@@ -65,7 +81,7 @@ function episodeCode(episodObject) {
 function removePtags(objectEpisods) {
     const openingP = objectEpisods.summary.replace(/<p>/g, " ")
     const allPs = openingP.replace(/<\/p>/g, " ")
-    console.log(allPs)
+    // console.log(allPs)
     return allPs
 
 }
