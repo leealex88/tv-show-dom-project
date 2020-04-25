@@ -1,53 +1,31 @@
 body {
   background-color: #111016;
-  margin-left: 80px;
-  margin-right: 80px;
-  font-family: 'Patrick Hand',
-    cursive;
-}
-
-.input-div {
-  width: 100vw;
-  height: 10vh;
-}
-
-.input {
-  margin-top: 40px;
-  padding: 5px;
-}
-
-.p-wow-many {
+  font-family: 'Patrick Hand', cursive;
   color: white;
 }
 
-
-
-
-
-#root {
-  color: white;
-
+.cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  margin-right: -15px;
+  margin-left: -15px;
+  justify-content: center;
+}
+
+.episode-code {
+  text-align: center;
 }
 
 .single-card {
   border: white 2px solid;
-  width: 280px;
   height: 450px;
   overflow: scroll;
-  margin-bottom: 40px;
+  margin: 20px;
 }
 
 .titel {
   text-align: center;
   font-size: 23px;
-}
-
-.episode-code {
-  text-align: center;
-
 }
 
 .image {

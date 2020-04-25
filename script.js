@@ -1,84 +1,83 @@
-//You can edit ALL of the code here
-const allEpisodes = getAllEpisodes();
-// console.log(allEpisodes)
-
-
 function setup() {
-  makePageForEpisodes(allEpisodes);
-  allMovieCards = Array.from(document.getElementsByClassName("single-card"));
-  console.log('allEpisods', allEpisodes)
+    const allEpisodes = getAllEpisodes();
+    // console.log(allEpisodes)
+    makePageForEpisodes(allEpisodes);
+    searchTheInput(allEpisodes)
+    // removePtags(allEpisodes)
 }
-
-
-
-
-const inputDiv = document.getElementById('input')
-const inputTag = document.createElement("input");
-inputTag.classList.add("input");
-inputDiv.appendChild(inputTag);
-const pHowMany = document.createElement("p");
-pHowMany.classList.add("p-wow-many");
-inputDiv.appendChild(pHowMany);
-pHowMany.textContent = `Displaying from ${allEpisodes.length}`
 const rootElem = document.getElementById("root");
-let allMovieCards; //Array with all all movie cards
+
+const firstDiv = document.createElement("div");
+const secondDiv = document.createElement("div");
+const inputTag = document.createElement("input");
+const pLabelTag = document.createElement("p");
+rootElem.appendChild(firstDiv)
+rootElem.appendChild(secondDiv)
+firstDiv.appendChild(inputTag)
+firstDiv.appendChild(pLabelTag)
+
+inputTag.classList.add("input");
+pLabelTag.classList.add("p-label-tag");
+secondDiv.classList.add("cards");
+secondDiv.classList.add("col-12");
+
+function searchTheInput(episodsObject) {
+
+    function inputValue() {
+
+        let valueOfFilter = episodsObject.filter(episod => {
+            let lowerCaseSummary = episod.summary.toLowerCase();
+            let lowerCaseName = episod.name.toLowerCase();
+            let lowerCaseInput = inputTag.value.toLowerCase();
+            let episodeCodeowerCase = episodeCode(episod).toLowerCase()
 
 
-const option = document.createElement("SELECT");
-inputDiv.appendChild(option);
-option.add('ols')
-
-function searchInput(e) {
-  const searchValue = e.target.value.toLowerCase()
-  const check = allMovieCards.filter(element => element.textContent.toLowerCase().includes(searchValue))
-  console.log(check)
-  pHowMany.textContent = `Displaying ${check.length} from ${allEpisodes.length} episods`
-  console.log(check.length)
-  //clean the context of the div
-  rootElem.textContent = ''
-  //assigne the searched values to the div 
-  check.forEach(element => rootElem.appendChild(element))
-}
-
-inputTag.addEventListener("input", searchInput)
-
-
-
-function makePageForEpisodes(episodeList) {
-  const movieLiest = episodeList.map((episod) => {
-    //single card
-    const divCard = document.createElement("div");
-    divCard.classList.add("single-card");
-    rootElem.appendChild(divCard);
-    // h3 - titel tag / the episod number to be added
-    const pTag = document.createElement("p");
-    pTag.classList.add("titel");
-    divCard.appendChild(pTag);
-    pTag.innerHTML = episod.name;
-    //sesonCode episode tag
-    const pCodeTag = document.createElement("p");
-    pCodeTag.classList.add("episode-code");
-    divCard.appendChild(pCodeTag);
-    // image div
-    const imageDiv = document.createElement("img");
-    imageDiv.classList.add("image");
-    divCard.appendChild(imageDiv);
-    imageDiv.src = episod.image.medium;
-    // description
-    const pSummary = document.createElement("p");
-    pSummary.classList.add("summary");
-    divCard.appendChild(pSummary);
-    pSummary.innerHTML = episod.summary;
-
-    if (episod.season < 10 && episod.number < 10) {
-      pCodeTag.innerHTML = `S0${episod.season}E0${episod.number}`;
-    } else {
-      pCodeTag.innerHTML = `S${episod.season}E${episod.number}`;
+            if (lowerCaseSummary.indexOf(lowerCaseInput) > -1 || lowerCaseName.indexOf(lowerCaseInput) > -1 || episodeCodeowerCase.indexOf(lowerCaseInput) > -1) {
+                return true
+            } else {
+                return false
+            }
+        })
+        // console.log(valueOfFilter.length)
+        pLabelTag.innerHTML = `Displaying ${valueOfFilter.length}/${episodsObject.length}`
+        makePageForEpisodes(valueOfFilter)
     }
-  });
-
+    inputTag.addEventListener('input', inputValue)
 
 }
 
+
+
+function episodeCode(episodObject) {
+    let episodSeason = episodObject.season;
+    let episodNumber = episodObject.number;
+
+    (episodSeason < 10) ? episodSeason = `0${episodSeason}`: null;
+    (episodNumber < 10) ? episodNumber = `0${episodNumber}`: null;
+
+    return `S${episodSeason}E${episodNumber}`;
+}
+
+function removePtags(objectEpisods) {
+    const openingP = objectEpisods.summary.replace(/<p>/g, " ")
+    const allPs = openingP.replace(/<\/p>/g, " ")
+    console.log(allPs)
+    return allPs
+
+}
+
+function makePageForEpisodes(allEpisodesList) {
+    secondDiv.innerHTML = '';
+    allEpisodesList.forEach((episod) => {
+        secondDiv.innerHTML += `
+        <div class="single-card col-2">
+        <p class="titel">${episod.name}</p>
+        <p class="episode-code">${episodeCode(episod)}</p>
+        <img class="image" src=${episod.image.medium}>
+        <p class="summary"> ${removePtags(episod)}</p>
+        </div>
+        `;
+    });
+}
 
 window.onload = setup;
