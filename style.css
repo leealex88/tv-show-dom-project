@@ -1,7 +1,7 @@
 body {
   background-color: #111016;
-  font-family: 'Patrick Hand', cursive;
-  color: white;
+  font-family: 'Cabin', sans-serif;
+  color: #111016;
 }
 
 
@@ -14,26 +14,42 @@ body {
   text-align: center;
 }
 
-.single-card {
-  border: white 2px solid;
-  height: 450px;
-  overflow: scroll;
-  margin: 5px;
+
+.each-card {
+  background-color: white;
+  border-radius: 15px;
+  height: 400px;
+  margin-top: 30px;
+}
+
+.description {
+  height: 69%;
+  overflow: auto;
 }
 
 .titel {
   text-align: center;
   font-size: 23px;
+  margin-top: 10px;
+  margin-bottom: 8px;
 }
 
 .image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.episode-code {
+  margin-top: 8px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .summary {
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-y: auto;
   text-align: justify;
-  margin: 16px;
-  font-size: 17px;
+  /* margin: 16px; */
+  font-size: 14px;
 }
