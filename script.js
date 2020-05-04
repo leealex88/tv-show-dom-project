@@ -1,10 +1,10 @@
-function setup() {
-    // const allEpisodes = getAllEpisodes();
+const allShows = getAllShows()
 
-    getShowsData('https://api.tvmaze.com/shows', (allShows) => {
-        // console.log('all', allShows)
-        appendToOptionShows(allShows)
-    })
+function setup() {
+    const allShows = getAllShows()
+    console.log(allShows)
+    appendToOptionShows(allShows)
+    displayAllShows(allShows)
 }
 
 function getShows(id) {
@@ -12,7 +12,6 @@ function getShows(id) {
         makePageForEpisodes(allEpisodes);
         searchTheInput(allEpisodes)
         appendToTheSelect(allEpisodes)
-        // console.log(allEpisodes)
     })
 }
 
@@ -24,23 +23,45 @@ function appendToOptionShows(arrayOfShows) {
     let optionTwo = document.createElement("option")
     optionTwo.text = "All shows"
     selectTwo.appendChild(optionTwo)
-    optionTwo.setAttribute("id", 'all-shows');
+    optionTwo.setAttribute("value", 'all-shows')
+
+    arrayOfShows.sort(function (a, b) {
+        var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        // names must be equal
+        return 0;
+    });
 
     arrayOfShows.forEach(show => {
         let optionTwo = document.createElement('option')
         optionTwo.text = show.name
-        optionTwo.setAttribute("id", `${show.id}`);
+        optionTwo.setAttribute("value", `${show.id}`);
         selectTwo.appendChild(optionTwo)
     })
+
 
 }
 
 selectTwo.addEventListener('change', checkChoosenShowValue)
 
-function checkChoosenShowValue() {
-    const idShow = selectTwo.options[selectTwo.selectedIndex].id
-    getShows(idShow)
-    console.log(idShow)
+function checkChoosenShowValue(e) {
+    let showValue = e.target.value
+    console.log(showValue)
+    secondDiv.innerHTML = ''
+
+    if (showValue == "all-shows") {
+        const allShows = getAllShows()
+        displayAllShows(allShows)
+    } else {
+        showsDiv.innerHTML = ''
+        getShows(showValue)
+    }
 }
 
 
@@ -55,26 +76,22 @@ function appendToTheSelect(objectValues) {
     select.appendChild(option)
 
     objectValues.forEach((element) => {
-        // console.log('game of t. element', element)
+
         let option = document.createElement("option")
         option.text = element.name + " " + episodeCode(element)
         select.appendChild(option)
         option.setAttribute("value", `${element.id}`);
     })
 
-    // const arrayOfOptions = Array.from(select)
-    // console.log('arrOfOptions', arrayOfOptions)
     select.addEventListener('change', checkChoosenValue)
 
     function checkChoosenValue(e) {
         // const id = select.options[select.selectedIndex].id
-        const id = e.target.value
-        console.log('id', id)
-        if (id === ("All episods")) {
+        const value = e.target.value
+        if (value === ("All episods")) {
             makePageForEpisodes(objectValues)
         } else {
-            const filteredEpisod = filterTheOption(objectValues, id)
-            // selected value includes() -> objectValues(object.name) 
+            const filteredEpisod = filterTheOption(objectValues, value)
             makePageForEpisodes(filteredEpisod)
         }
     }
@@ -82,8 +99,8 @@ function appendToTheSelect(objectValues) {
 
 // array and string 
 //3 things for the function/ input(always a parameter)/ how many parameters and what data types / and output, whic his whatever it returns and the side effect
-function filterTheOption(arrayOfEpisods, id) {
-    return arrayOfEpisods.filter(episod => id === episod.id.toString())
+function filterTheOption(arrayOfEpisods, value) {
+    return arrayOfEpisods.filter(episod => value === episod.id.toString())
 }
 
 const firstDiv = document.createElement("div");
@@ -104,8 +121,47 @@ pLabelTag.classList.add("p-label-tag");
 secondDiv.className = "cards row"
 rootElem.className = "container"
 
+function removePtagsFromTheShows(showsArrow) {
+
+    // console.log(shows.summary)
+    const openingP = showsArrow.summary.replace(/<p>/g, " ")
+    // console.log(openingP)
+    const allShowPs = openingP.replace(/<\/p>/g, " ")
+    // console.log(allShowPs)
+    return allShowPs
+
+}
+
+const showsDiv = document.createElement("div");
+
+function displayAllShows(shows) {
+
+    rootElem.appendChild(showsDiv)
+    shows.forEach(show => {
+        showsDiv.innerHTML += `
+      <div class="all-show-info">
+      <img class="show-image" src=${show.image.medium}>
+      <div class="description">
+      <p value=${show.id} class="p-show">${show.name}</p>
+      <p class="summary"> ${removePtagsFromTheShows(show)}</p>
+      <div class="show-side-bar">
+      <p class="status">${show.status}</p>
+      <p class="rating"><span>&#9733;</span> ${show.rating.average}</p>
+      <p class="runtime">Runtime: ${show.runtime}</p>
+      </div>
+      </div>
+      </div>
+      
+      
+      `
+    })
+}
 
 
+
+function displayingTag(value, episode) {
+    pLabelTag.innerHTML = `Displaying ${value.length}/${episode.length}`
+}
 
 function searchTheInput(episodsObject) {
     function inputValue() {
@@ -123,7 +179,7 @@ function searchTheInput(episodsObject) {
             }
         })
         // console.log(valueOfFilter.length)
-        pLabelTag.innerHTML = `Displaying ${valueOfFilter.length}/${episodsObject.length}`
+        searchTheInput(valueOfFilter, episodsObject)
         makePageForEpisodes(valueOfFilter)
     }
     inputTag.addEventListener('input', inputValue)
@@ -145,13 +201,14 @@ function episodeCode(episodObject) {
 function removePtags(objectEpisods) {
     const openingP = objectEpisods.summary.replace(/<p>/g, " ")
     const allPs = openingP.replace(/<\/p>/g, " ")
-    // console.log(allPs)
+    console.log(allPs)
     return allPs
-
 }
+
 
 function makePageForEpisodes(allEpisodesList) {
     secondDiv.innerHTML = '';
+    displayingTag(allEpisodesList, allEpisodesList)
     allEpisodesList.forEach((episod) => {
         secondDiv.innerHTML += `
         <div class="col-12 md-col-6 lg-col-3">
@@ -167,5 +224,4 @@ function makePageForEpisodes(allEpisodesList) {
         `;
     });
 }
-
 window.onload = setup
