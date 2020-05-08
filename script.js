@@ -1,10 +1,11 @@
 function setup() {
-    // const allEpisodes = getAllEpisodes();
-
+    // const allEpisodes = getAllEpisode
     getShowsData('https://api.tvmaze.com/shows', (allShows) => {
         // console.log('all', allShows)
         appendToOptionShows(allShows)
+        getShows(allShows[0].id)
     })
+
 }
 
 function getShows(id) {
@@ -21,10 +22,10 @@ let selectTwo = document.createElement("select");
 let select = document.createElement("select");
 
 function appendToOptionShows(arrayOfShows) {
-    let optionTwo = document.createElement("option")
-    optionTwo.text = "All shows"
-    selectTwo.appendChild(optionTwo)
-    optionTwo.setAttribute("id", 'all-shows');
+    // let optionTwo = document.createElement("option")
+    // optionTwo.text = "All shows"
+    // selectTwo.appendChild(optionTwo)
+    // optionTwo.setAttribute("id", 'all-shows');
 
     arrayOfShows.forEach(show => {
         let optionTwo = document.createElement('option')
