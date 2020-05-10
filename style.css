@@ -138,6 +138,7 @@ img {
 
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 40px;
 }
@@ -145,7 +146,7 @@ img {
 .shows {
   width: 210px;
   border: 1px solid white;
-  border-radius: 15px;
+  border-radius: 8px;
   padding: 10px;
   margin-right: 10px;
   color: #111016;
@@ -156,7 +157,7 @@ img {
 .episodes {
   width: 210px;
   border: 1px solid white;
-  border-radius: 15px;
+  border-radius: 8px;
   padding: 10px;
   margin-right: 10px;
   color: #111016;
@@ -188,17 +189,28 @@ img {
   margin-top: 0px;
 }
 
-/* @media (min-width: 576px) {
+/* @media (min-width: 768px) {
 
-  .all-show-info {
-    flex-wrap: wrap;
-  }
-
-}
-
-@media (min-width: 768px) {
-  .all-show-info {
-    flex-wrap: wrap;
+  .p-label-tag {
+    margin: 15px;
   }
 
 } */
+
+@media only screen and (max-width: 600px) {
+  .p-label-tag {
+    margin: 10px;
+  }
+
+  .search-input {
+    margin: 10px;
+  }
+
+  .episodes {
+    margin: 10px;
+  }
+
+  .shows {
+    margin: 10px;
+  }
+}
