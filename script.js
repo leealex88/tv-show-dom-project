@@ -92,7 +92,7 @@ function appendToTheSelect(objectValues) {
             makePageForEpisodes(objectValues)
         } else {
             const filteredEpisod = filterTheOption(objectValues, id)
-            // makePageForEpisodes(filteredEpisod)
+            makePageForEpisodes(filteredEpisod)
         }
     }
 }
@@ -134,8 +134,8 @@ function episodeCode(episodObject) {
     let episodSeason = episodObject.season;
     let episodNumber = episodObject.number;
 
-    (episodSeason < 10) ? episodSeason = `0${episodSeason}`: null;
-    (episodNumber < 10) ? episodNumber = `0${episodNumber}`: null;
+    episodSeason = episodSeason < 10 ? `0${episodSeason}` : episodSeason;
+    episodNumber = episodNumber < 10 ? `0${episodNumber}` : episodNumber;
 
     return `S${episodSeason}E${episodNumber}`;
 }
