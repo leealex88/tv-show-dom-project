@@ -1,11 +1,8 @@
 function setup() {
-    // const allEpisodes = getAllEpisode
     getShowsData('https://api.tvmaze.com/shows', (allShows) => {
-        // console.log('all', allShows)
         appendToOptionShows(allShows)
         getShows(allShows[0].id)
     })
-
 }
 
 function getShows(id) {
@@ -13,59 +10,79 @@ function getShows(id) {
         makePageForEpisodes(allEpisodes);
         searchTheInput(allEpisodes)
         appendToTheSelect(allEpisodes)
-        // console.log(allEpisodes)
+        // searchTheInput(allEpisodes)
     })
 }
 
+function createElement(tagName, className, parentElement) {
+    const element = document.createElement(tagName)
+    element.className = className
+    parentElement.appendChild(element)
+    return element
+}
+
 const rootElem = document.getElementById("root");
-let selectTwo = document.createElement("select");
-let select = document.createElement("select");
+const firstDiv = createElement("div", "navbar", rootElem);
+const selectShows = createElement("select", "shows", firstDiv)
+const selectEpisodes = createElement("select", "episodes", firstDiv);
+const inputTag = createElement("input", "search-input", firstDiv);
+const pLabelTag = createElement("p", "p-label-tag", firstDiv);
+const secondDiv = createElement("div", "cards row", rootElem);
+rootElem.className = "container"
+inputTag.placeholder = "Search episodes..";
+
+
+
+function sortShowsArrayInAlphabetOrder(showsArray) {
+    showsArray.sort(function (a, b) {
+        var nameA = a.name.toUpperCase();
+        var nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+}
 
 function appendToOptionShows(arrayOfShows) {
-    // let optionTwo = document.createElement("option")
-    // optionTwo.text = "All shows"
-    // selectTwo.appendChild(optionTwo)
-    // optionTwo.setAttribute("id", 'all-shows');
-
+    sortShowsArrayInAlphabetOrder(arrayOfShows)
     arrayOfShows.forEach(show => {
         let optionTwo = document.createElement('option')
         optionTwo.text = show.name
         optionTwo.setAttribute("id", `${show.id}`);
-        selectTwo.appendChild(optionTwo)
+        selectShows.appendChild(optionTwo)
     })
-
 }
 
-selectTwo.addEventListener('change', checkChoosenShowValue)
+selectShows.addEventListener('change', checkChoosenShowValue)
 
 function checkChoosenShowValue() {
-    const idShow = selectTwo.options[selectTwo.selectedIndex].id
+    const idShow = selectShows.options[selectShows.selectedIndex].id
     getShows(idShow)
     console.log(idShow)
 }
 
 
 function appendToTheSelect(objectValues) {
-
-    while (select.firstChild) {
-        select.firstChild.remove();
+    while (selectEpisodes.firstChild) {
+        selectEpisodes.firstChild.remove();
     }
     let option = document.createElement("option")
     option.text = "All episods"
     option.setAttribute("value", 'all-episods');
-    select.appendChild(option)
+    selectEpisodes.appendChild(option)
 
     objectValues.forEach((element) => {
-        // console.log('game of t. element', element)
         let option = document.createElement("option")
         option.text = element.name + " " + episodeCode(element)
-        select.appendChild(option)
+        selectEpisodes.appendChild(option)
         option.setAttribute("value", `${element.id}`);
     })
 
-    // const arrayOfOptions = Array.from(select)
-    // console.log('arrOfOptions', arrayOfOptions)
-    select.addEventListener('change', checkChoosenValue)
+    selectEpisodes.addEventListener('change', checkChoosenValue)
 
     function checkChoosenValue(e) {
         // const id = select.options[select.selectedIndex].id
@@ -75,8 +92,7 @@ function appendToTheSelect(objectValues) {
             makePageForEpisodes(objectValues)
         } else {
             const filteredEpisod = filterTheOption(objectValues, id)
-            // selected value includes() -> objectValues(object.name) 
-            makePageForEpisodes(filteredEpisod)
+            // makePageForEpisodes(filteredEpisod)
         }
     }
 }
@@ -87,50 +103,31 @@ function filterTheOption(arrayOfEpisods, id) {
     return arrayOfEpisods.filter(episod => id === episod.id.toString())
 }
 
-const firstDiv = document.createElement("div");
-const secondDiv = document.createElement("div");
-const inputTag = document.createElement("input");
-const pLabelTag = document.createElement("p");
-
-
-rootElem.appendChild(firstDiv)
-rootElem.appendChild(secondDiv)
-firstDiv.appendChild(inputTag)
-firstDiv.appendChild(pLabelTag)
-firstDiv.appendChild(select)
-firstDiv.appendChild(selectTwo)
-
-inputTag.classList.add("input");
-pLabelTag.classList.add("p-label-tag");
-secondDiv.className = "cards row"
-rootElem.className = "container"
-
-
 
 
 function searchTheInput(episodsObject) {
     function inputValue() {
-
         let valueOfFilter = episodsObject.filter(episod => {
             let lowerCaseSummary = episod.summary.toLowerCase();
             let lowerCaseName = episod.name.toLowerCase();
             let lowerCaseInput = inputTag.value.toLowerCase();
             let episodeCodeowerCase = episodeCode(episod).toLowerCase()
-
             if (lowerCaseSummary.indexOf(lowerCaseInput) > -1 || lowerCaseName.indexOf(lowerCaseInput) > -1 || episodeCodeowerCase.indexOf(lowerCaseInput) > -1) {
                 return true
             } else {
                 return false
             }
         })
-        // console.log(valueOfFilter.length)
-        pLabelTag.innerHTML = `Displaying ${valueOfFilter.length}/${episodsObject.length}`
         makePageForEpisodes(valueOfFilter)
+        displayPtagValue(valueOfFilter, episodsObject)
+
     }
     inputTag.addEventListener('input', inputValue)
-
 }
 
+function displayPtagValue(arrayToBeFiltered, wholeArray) {
+    pLabelTag.textContent = `Displaying ${arrayToBeFiltered.length}/${wholeArray.length}`
+}
 
 
 function episodeCode(episodObject) {
@@ -146,26 +143,26 @@ function episodeCode(episodObject) {
 function removePtags(objectEpisods) {
     const openingP = objectEpisods.summary.replace(/<p>/g, " ")
     const allPs = openingP.replace(/<\/p>/g, " ")
-    // console.log(allPs)
     return allPs
-
 }
 
 function makePageForEpisodes(allEpisodesList) {
     secondDiv.innerHTML = '';
+    displayPtagValue(allEpisodesList, allEpisodesList)
+    let cardProp = ''
     allEpisodesList.forEach((episod) => {
-        secondDiv.innerHTML += `
-        <div class="col-12 md-col-6 lg-col-3">
-        <div class="each-card">
-        <img class="image" src=${episod.image.medium}>
-            <div class="description">
-            <p class="titel">${episod.name}</p>
-            <p class="episode-code">${episodeCode(episod)}</p>
-            <p class="summary"> ${removePtags(episod)}</p>
-            </div>
-        </div>
-        </div>
-        `;
+        const mainDiv = createElement("div", "col-12 md-col-6 lg-col-3", secondDiv)
+        const wrapDiv = createElement("div", "each-card", mainDiv)
+        const imgTag = document.createElement("img")
+        imgTag.src = episod.image.medium
+        wrapDiv.appendChild(imgTag)
+        let descDiv = createElement("div", "description", wrapDiv)
+        let titel = createElement("p", "titel", descDiv)
+        let episodsCode = createElement("p", "episode-code", descDiv)
+        let summary = createElement("p", "summary", descDiv)
+        titel.textContent = episod.name
+        episodsCode.textContent = episodeCode(episod)
+        summary.textContent = removePtags(episod)
     });
 }
 

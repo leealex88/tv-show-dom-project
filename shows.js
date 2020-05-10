@@ -8,7 +8,7 @@ function getShowsData(URL, callback) {
     // Do something with the JSON
     .then((data) => {
       callback(data);
-      console.log(data);
+      // console.log(data);
     })
     // If something goes wrong
     .catch((error) => console.log(error));

@@ -13,17 +13,14 @@
 
 } */
 
-
 body {
   background-color: #111016;
   /* background-color: #FFFAFA; */
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   color: #111016;
 }
 
-
 .cards {
-
   justify-content: center;
 }
 
@@ -33,11 +30,10 @@ body {
   padding: 6px;
 }
 
-
 .each-card {
-  background-color: #FFFAFA;
+  background-color: #fffafa;
   border-radius: 15px;
-  height: 400px;
+  height: 420px;
   margin-top: 30px;
 }
 
@@ -47,24 +43,16 @@ body {
   position: relative;
 }
 
-
 .titel {
   text-align: center;
   font-size: 23px;
   margin-top: 10px;
   margin-bottom: 8px;
-
-}
-
-.image {
-  width: 100%;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
 }
 
 .episode-code {
   margin-top: 8px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   text-align: center;
   margin-bottom: 0px;
 }
@@ -72,6 +60,7 @@ body {
 .summary {
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 10px;
   margin-top: 3px;
   overflow-y: auto;
   text-align: justify;
@@ -80,25 +69,27 @@ body {
 }
 
 .p-label-tag {
-  color: #FFFAFA;
+  color: #fffafa;
 }
 
 .p-show {
-  color: #FFFAFA
+  color: #fffafa;
 }
 
 .text {
   display: inline-block;
 }
 
-.img {
+img {
   display: inline-block;
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .show-summary {
   color: #111016;
   font-size: 14px;
-
 }
 
 .titel-photo {
@@ -127,7 +118,7 @@ body {
 
 .all-show-info {
   display: flex;
-  background-color: #FFFAFA;
+  background-color: #fffafa;
   color: #111016;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -136,12 +127,65 @@ body {
 
 .show-side-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .show-image {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.shows {
+  width: 210px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-right: 10px;
+  color: #111016;
+  background-color: white;
+  height: 40px;
+}
+
+.episodes {
+  width: 210px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-right: 10px;
+  color: #111016;
+  background-color: white;
+  height: 40px;
+}
+
+.search-input {
+  width: 210px;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  color: #111016;
+  background-color: white;
+  height: 40px;
+}
+
+.p-label-tag {
+  width: 210px;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  color: #111016;
+  background-color: white;
+  height: 40px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 /* @media (min-width: 576px) {
