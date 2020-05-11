@@ -149,17 +149,17 @@ function removePtags(objectEpisods) {
 function makePageForEpisodes(allEpisodesList) {
     secondDiv.innerHTML = '';
     displayPtagValue(allEpisodesList, allEpisodesList)
-    let cardProp = ''
+    // const cardProp = ''
     allEpisodesList.forEach((episod) => {
         const mainDiv = createElement("div", "col-12 md-col-6 lg-col-3", secondDiv)
         const wrapDiv = createElement("div", "each-card", mainDiv)
         const imgTag = document.createElement("img")
         imgTag.src = episod.image.medium
         wrapDiv.appendChild(imgTag)
-        let descDiv = createElement("div", "description", wrapDiv)
-        let titel = createElement("p", "titel", descDiv)
-        let episodsCode = createElement("p", "episode-code", descDiv)
-        let summary = createElement("p", "summary", descDiv)
+        const descDiv = createElement("div", "description", wrapDiv)
+        const titel = createElement("p", "titel", descDiv)
+        const episodsCode = createElement("p", "episode-code", descDiv)
+        const summary = createElement("p", "summary", descDiv)
         titel.textContent = episod.name
         episodsCode.textContent = episodeCode(episod)
         summary.textContent = removePtags(episod)
